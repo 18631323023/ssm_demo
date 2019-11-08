@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -22,8 +24,10 @@ public class UserController extends BaseCotroller{
     @ResponseBody
     public void test(HttpServletRequest request, HttpServletResponse response){
         int t= userService.test();
-        String result = JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.success(t));
-        System.out.println(result);
+        Map map = new HashMap();
+        map.put("t",t);
+        map.put("aa","你好");
+        String result = JsonUtils.getJsonString4JavaPOJO(ResultDTOBuilder.success(map));
         super.safeJsonPrint(response, result);
         return ;
     }
